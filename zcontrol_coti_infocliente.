@@ -1,0 +1,43 @@
+FUNCTION zcontrol_coti_infocliente.
+*"----------------------------------------------------------------------
+*"*"Interfase local
+*"  IMPORTING
+*"     REFERENCE(NOMBRES) TYPE  ZTPERS_ASA-NOMBRES
+*"     REFERENCE(APELLIDOS) TYPE  ZTPERS_ASA-APELLIDOS
+*"     REFERENCE(CEDULA) TYPE  ZTPERS_ASA-CEDULA
+*"     REFERENCE(TELEFONO) TYPE  ZTPERS_ASA-TELEFONO
+*"     REFERENCE(FECHA_NACIMIENTO) TYPE  ZTPERS_ASA-FECHA_NACIMIENTO
+*"     REFERENCE(GENERO) TYPE  ZTPERS_ASA-GENERO
+*"----------------------------------------------------------------------
+  DATA: nombre_completo    TYPE string,
+        subtitulo1         TYPE string,
+        subtitulo2         TYPE string,
+        subtitulo3         TYPE string,
+        subtitulo4         TYPE string,
+        subtitulo5         TYPE string,
+        sbtx1              TYPE string,
+        sbtx2              TYPE string,
+        sbtx3              TYPE string,
+        sbtx4              TYPE string.
+
+  subtitulo1 = 'Nombre completo: '.
+  subtitulo2 = 'Cedula: '.
+  subtitulo3 = '   Telefono: '.
+  subtitulo4 = 'Fecha de nacimiento: '.
+  subtitulo5 = 'Genero: '.
+
+  CONCATENATE subtitulo1 nombres apellidos INTO nombre_completo SEPARATED BY space.
+  sbtx1 = |{ subtitulo2 } { cedula } { subtitulo3 } { telefono }|.
+  sbtx2 = |{ subtitulo4 } { fecha_nacimiento } |.
+  sbtx3 = |{ subtitulo5 } { genero }|.
+
+  CALL FUNCTION 'POPUP_TO_INFORM'
+    EXPORTING
+      titel = 'Información del cliente.'
+      txt1  = nombre_completo
+      txt2  = sbtx1
+      txt3  = sbtx2
+      txt4  = sbtx3.
+
+
+ENDFUNCTION.
